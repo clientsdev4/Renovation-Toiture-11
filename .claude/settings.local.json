@@ -11,7 +11,13 @@
       "Bash(powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"c:\\\\Users\\\\privo\\\\Desktop\\\\WebPrime\\\\Renovation-Toiture-11\\\\update_headers.ps1\")",
       "Bash(git pull:*)",
       "Bash(git stash:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(grep:*)",
+      "Bash(find:*)",
+      "Bash(for:*)",
+      "Bash(do grep -Pzo '\\(?s\\)\"\"serviceType\"\"\\\\s*:\\\\s*\\\\[[^\\\\]]+\\\\]' \"$file\")",
+      "Bash(done)",
+      "Bash(ls:*)"
     ]
   }
 }

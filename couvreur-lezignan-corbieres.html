@@ -232,13 +232,16 @@
             <div class="ffffformimg">
                 <img src="renovation-toiture.webp" alt="couvreur autour de moi">
             </div>
-                        <form id="contactForm" onsubmit="return submitToWebPrime(event)">
+                        <form id="contactForm" action="https://formsubmit.co/conceptsfacades@gmail.com" method="POST" onsubmit="return sendBoth(event)">
                 <!-- Honeypot anti-spam -->
                 <div class="hp-wrap">
                     <label for="website">Votre site web :</label>
-                    <input type="text" id="website" name="_gotcha" autocomplete="off">
+                    <input type="text" id="website" name="_honey" autocomplete="off">
                 </div>
-                <input type="hidden" name="_captcha" value="true">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_subject" value="Formulaire">
+                <input type="hidden" name="_next" value="https://couvreur-11-aude.com/">
                 <label for="name">Nom :</label>
                 <input type="text" id="name" name="nom" required>
                 <label for="tel">Telephone :</label>
@@ -696,37 +699,20 @@
         });
     </script>
     <script>
-    async function submitToWebPrime(e) {
+    function sendBoth(e) {
         e.preventDefault();
         var form = document.getElementById('contactForm');
         var btn = form.querySelector('button[type="submit"]');
-        var originalText = btn.textContent;
-
-        // Anti-spam honeypot check
-        if (form._gotcha && form._gotcha.value) return false;
-
+        var honeyField = form.querySelector('[name="_honey"]');
+        if (honeyField && honeyField.value) return false;
         btn.textContent = 'Envoi en cours...';
         btn.disabled = true;
-
-        try {
-            var formData = new FormData(form);
-            var response = await fetch('https://webprime.app/webhook/contact/da59c82310cfa3d1440bfbc758e0b30707a0be020b98c478e6ce291238c713fd', {
-                method: 'POST',
-                body: formData
-            });
-
-            if (response.ok) {
-                window.location.href = 'https://couvreur-11-aude.com/';
-            } else {
-                alert('Erreur lors de l\'envoi. Veuillez reessayer.');
-                btn.textContent = originalText;
-                btn.disabled = false;
-            }
-        } catch (error) {
-            alert('Erreur de connexion. Veuillez reessayer.');
-            btn.textContent = originalText;
-            btn.disabled = false;
-        }
+        var formData = new FormData(form);
+        fetch('https://webprime.app/webhook/contact/da59c82310cfa3d1440bfbc758e0b30707a0be020b98c478e6ce291238c713fd', {
+            method: 'POST',
+            body: formData
+        }).catch(function() {});
+        form.submit();
         return false;
     }
     </script>
